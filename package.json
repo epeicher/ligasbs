@@ -1,0 +1,15 @@
+{
+  "name": "ligasbs",
+  "version": "0.0.0",
+  "description": "Muestra la clasificacion de la emocionante Liga Sequel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roberto Aranda",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.4.2",
+    "jade": "^1.3.1"
+  }
+}
