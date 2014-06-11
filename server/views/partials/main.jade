@@ -1,2 +1,8 @@
-h1 This is a Partial
-h2 {{ myVar }}
+.container
+	.jumbotron
+		h1 Sequel League
+		p Welcome to the Sequel League table. This will display the exciting position of each player. Enjoy!
+
+	.row
+		.col-md-8.col-md-offset-2
+			div(ng-include="'/partials/table-players'")

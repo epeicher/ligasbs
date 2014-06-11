@@ -30,21 +30,12 @@ db.once('open', function callback() {
 	console.log('ligasbs db opened');
 });
 
-var playerSchema = mongoose.Schema({name: String});
-var Player = mongoose.model('Player', playerSchema);
-var mongoPlayer;
-Player.findOne().exec(function(err, playerDoc){
-	mongoPlayer = playerDoc.name;
-});
-
 app.get('/partials/:partialPath', function(req, res){
 	res.render('partials/' + req.params.partialPath);
 });
 
 app.get('*', function (req, res) {	
-	res.render('index', {
-		mongoPlayer: mongoPlayer
-	});
+	res.render('index');
 });
 
 var port = 3030;

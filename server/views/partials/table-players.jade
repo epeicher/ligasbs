@@ -1,0 +1,9 @@
+table.table.table-striped
+	tr
+		th Name
+		th Points
+		th Goals
+	tr(ng-repeat="player in players")
+		td {{player.name}}
+		td {{player.points}}
+		td {{player.goals}}
