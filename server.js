@@ -1,7 +1,8 @@
 var express = require('express'),
 	stylus = require('stylus'),
 	logger = require('morgan'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	mongoose = require('mongoose');
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -22,8 +23,28 @@ app.use(stylus.middleware(
 }));
 app.use(express.static(__dirname + '/public'));
 
-app.get('*', function (req, res) {
-	res.render('index.jade');
+mongoose.connect('mongodb://localhost/ligasbs');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error...'));
+db.once('open', function callback() {
+	console.log('ligasbs db opened');
+});
+
+var playerSchema = mongoose.Schema({name: String});
+var Player = mongoose.model('Player', playerSchema);
+var mongoPlayer;
+Player.findOne().exec(function(err, playerDoc){
+	mongoPlayer = playerDoc.name;
+});
+
+app.get('/partials/:partialPath', function(req, res){
+	res.render('partials/' + req.params.partialPath);
+});
+
+app.get('*', function (req, res) {	
+	res.render('index', {
+		mongoPlayer: mongoPlayer
+	});
 });
 
 var port = 3030;
