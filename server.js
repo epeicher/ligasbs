@@ -23,7 +23,12 @@ app.use(stylus.middleware(
 }));
 app.use(express.static(__dirname + '/public'));
 
-mongoose.connect('mongodb://localhost/ligasbs');
+if(env === 'development') {
+	mongoose.connect('mongodb://localhost/ligasbs');
+} else {
+	mongoose.connect('mongodb://pepe:perez@kahana.mongohq.com:10079/ligasbs');
+}
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error...'));
 db.once('open', function callback() {
@@ -38,6 +43,6 @@ app.get('*', function (req, res) {
 	res.render('index');
 });
 
-var port = 3030;
+var port = process.env.PORT || 3030;
 app.listen(port);
 console.log('Listening on port ' + port + '...');
