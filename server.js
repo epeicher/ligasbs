@@ -1,48 +1,48 @@
 var express = require('express'),
-	stylus = require('stylus'),
-	logger = require('morgan'),
-	bodyParser = require('body-parser'),
-	mongoose = require('mongoose');
+	mongoose = require('mongoose'),
+	passport = require('passport'),
+	LocalStrategy = require('passport-local').Strategy;
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var app = express();
 
-function compile(str,path){
-	return stylus(str).set('filename',path);
-}
+var config = require('./server/config/config')[env];
 
-app.set('views',__dirname + '/server/views');
-app.set('view engine', 'jade');
-app.use(logger());
-app.use(bodyParser());
-app.use(stylus.middleware(
-{
-	src: __dirname + '/public',
-	compile: compile
-}));
-app.use(express.static(__dirname + '/public'));
+require('./server/config/express')(app, config);
 
-if(env === 'development') {
-	mongoose.connect('mongodb://localhost/ligasbs');
-} else {
-	mongoose.connect('mongodb://pepe:perez@kahana.mongohq.com:10079/ligasbs');
-}
+require('./server/config/mongoose')(config);
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error...'));
-db.once('open', function callback() {
-	console.log('ligasbs db opened');
+var User = mongoose.model('User');
+passport.use(new LocalStrategy(
+	function (username, passowrd, done){
+		User.findOne({username: username}).exec(function(err, user){
+			if(user) {
+				return done(null, user);
+			} else {
+				return done(null, false);
+			}
+		})
+	}
+));
+
+passport.serializeUser(function(user, done){
+	if(user){
+		done(null, user._id);
+	}
 });
 
-app.get('/partials/:partialPath', function(req, res){
-	res.render('partials/' + req.params.partialPath);
-});
+passport.deserializeUser(function(id, done){
+	User.findOne({_id:id}).exec(function(err,user){
+		if(user){
+			return done(null,user);
+		} else {
+			return done(null, false);
+		}
+	})
+})
 
-app.get('*', function (req, res) {	
-	res.render('index');
-});
+require('./server/config/routes')(app);
 
-var port = process.env.PORT || 3030;
-app.listen(port);
-console.log('Listening on port ' + port + '...');
+app.listen(config.port);
+console.log('Listening on port ' + config.port + '...');
