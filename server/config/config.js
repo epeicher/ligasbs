@@ -9,7 +9,7 @@ module.exports = {
 	},
 	production: {
 		rootPath: rootPath,
-		db: 'mongodb://pepe:perez@kahana.mongohq.com:10079/ligasbs',
+		db: 'mongodb://pepe:' + process.env.MONGO_KEY +'@kahana.mongohq.com:10079/ligasbs',
 		port: process.env.PORT || 80
 	}
 }

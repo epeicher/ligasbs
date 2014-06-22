@@ -1,9 +1,30 @@
-table.table.table-striped
+table.table.table-striped.table-hover.table-condensed
 	tr
 		th Name
-		th Points
+		th Nick
+		th Played
+		th Won
+		th Tie
+		th Lost
+		th Victory %
+		th Goals For
+		th Goals Against
+		th Goal Average
 		th Goals
+		th Points
+		th Total Points
+		
 	tr(ng-repeat="player in players")
 		td {{player.name}}
+		td {{player.points}}
+		td {{player.points}}
+		td {{player.points}}
+		td {{player.points}}
+		td {{player.points}}
+		td {{player.points}}
+		td {{player.points}}
+		td {{player.points}}
+		td {{player.points}}
+		td {{player.points}}
 		td {{player.points}}
 		td {{player.goals}}
