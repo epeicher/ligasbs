@@ -1,4 +1,4 @@
-angular.module('app').controller('mvMainCtrl', function($scope){
+angular.module('app').controller('mvMainCtrl', function($scope, mvMatch){
 	$scope.players = [
 		{name: 'Juan', goals: 2, points: 8, playedMatches: 3},
 		{name: 'Pepe', goals: 4, points: 5, playedMatches: 3},
@@ -10,4 +10,7 @@ angular.module('app').controller('mvMainCtrl', function($scope){
 		{name: 'Ildefonso', goals: 7, points: 5, playedMatches: 3},
 		{name: 'Johnson', goals: 8, points: 8, playedMatches: 2},
 	]
+
+	$scope.match = mvMatch.query();
+	
 });

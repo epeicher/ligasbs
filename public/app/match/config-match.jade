@@ -4,10 +4,8 @@
 			fieldset
 				legend#matchLegend New Match Configuration
 				.form-group
-					h3.col-md-2.col-md-offset-2
-						span Light Team
-					h3.col-md-2.col-md-offset-4
-						span Dark Team
+					h3.col-md-2.col-md-offset-2 Light Team
+					h3.col-md-2.col-md-offset-4 Dark Team
 				.form-group
 					label.col-md-2.control-label(form="nickname") Nick player 1
 					.col-md-4
@@ -43,3 +41,10 @@
 					label.col-md-2.control-label(form="nickname") Nick player 5
 					.col-md-4
 						input.form-control(name="nickname", type="text", placeholder="Nick", ng-model="nickname", required)
+				.form-group
+					label.col-md-2.col-md-offset-4.control-label(form="matchdate") Date of the Match
+					.col-md-2
+						input.form-control(name="matchdate", type="date")
+				.form-group
+					.col-md-offset-6
+						button.btn.btn-primary(ng-click="configMatch()") Save!

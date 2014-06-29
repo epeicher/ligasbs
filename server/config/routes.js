@@ -1,5 +1,6 @@
 var auth = require('./auth'),
 	mongoose = require('mongoose'),
+	matchController = require('../controllers/matchController'),
 	User = mongoose.model('User');
 
 module.exports = function (app) {
@@ -9,6 +10,8 @@ module.exports = function (app) {
 			res.send(collection);
 		});
 	});
+
+	app.get('/api/matches', matchController.getMatch);
 
 	app.get('/partials/*', function(req, res){
 		console.log('Here: ' + req.params[0]);
@@ -20,6 +23,10 @@ module.exports = function (app) {
 	app.post('/logout', function(req,res) {
 		req.logout();
 		res.end();
+	});
+
+	app.all('/api/*', function(req,res) {
+		res.send(404);
 	});
 
 	app.get('*', function (req, res) {	
