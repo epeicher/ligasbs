@@ -12,9 +12,9 @@ module.exports = function (app) {
 	});
 
 	app.get('/api/matches', matchController.getMatch);
+	app.put('/api/matches', matchController.updateMatch);
 
 	app.get('/partials/*', function(req, res){
-		console.log('Here: ' + req.params[0]);
 		res.render('../../public/app/' + req.params[0]);
 	});
 
