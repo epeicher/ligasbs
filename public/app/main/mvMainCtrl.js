@@ -11,6 +11,6 @@ angular.module('app').controller('mvMainCtrl', function($scope, mvMatch){
 		{name: 'Johnson', goals: 8, points: 8, playedMatches: 2},
 	]
 
-	$scope.match = mvMatch.query();
+	$scope.match = mvMatch.get();
 	
 });
