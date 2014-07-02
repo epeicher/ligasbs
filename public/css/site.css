@@ -37,3 +37,9 @@ footer p {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+.headroom--pinned {
+  display: block;
+}
+.headroom--unpinned {
+  display: none;
+}

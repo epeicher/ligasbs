@@ -1,18 +1,19 @@
 extends ../includes/layout
 
 block main-content
-	.navbar.navbar-inverse.navbar-fixed-top
-		.container
-			.navbar-header
-				a.navbar-brand(href="/") Sequel League
-					h6 Amazing, intense... This is Sequel League
-			.navbar-collapse.collapse
-				ul.nav.navbar-nav
-					li
-						a(href="/") Home
-					li
-						a(href="/match/config-match") Config Match
-				div(ng-include="'/partials/account/navbar-login'")
+	header.headroom
+		.navbar.navbar-inverse.navbar-fixed-top
+			.container
+				.navbar-header
+					a.navbar-brand(href="/") Sequel League
+						h6 Amazing, intense... This is Sequel League
+				.navbar-collapse.collapse
+					ul.nav.navbar-nav
+						li
+							a(href="/") Home
+						li
+							a(href="/match/config-match") Config Match
+					div(ng-include="'/partials/account/navbar-login'")
 
 	section.content
 		div(ng-view)
