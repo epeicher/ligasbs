@@ -52,9 +52,9 @@
 								input.form-control(name="nickname", type="text", placeholder="Nick", ng-model="match.darkPlayers[4]", required)																											
 				.row									
 					.form-group
-						label.col-md-2.col-md-offset-4.control-label(form="matchdate") Date of the Match
+						label.col-md-2.col-md-offset-4.control-label(form="matchdate") Date and Time of the Match
 						.col-md-3
-							input.form-control(name="matchdate", type="datetime-local", ng-model="match.dateOfMatch") 
+							input.form-control(name="matchdate", type="datetime-local", ng-model="dateFormatted" value="{{dateFormatted}}") 
 					.form-group
 						label.col-md-2.col-md-offset-4.control-label(form="location") Location
 						.col-md-3

@@ -1,22 +1,9 @@
-//.well
 .panel.panel-info
 	.panel-heading The Match is on {{match.dateOfMatch | date:"EEEE, d of MMM y 'at' H:mm"}} in {{match.location}}
 	.panel-body
-		//.row
 		.col-md-3.col-md-offset-2.list-group
 			h3.list-group-item-heading Light Team
 			a.list-group-item(href="#", ng-repeat="player in match.lightPlayers") {{player}}
 		.col-md-3.col-md-offset-2.list-group
 			h3.list-group-item-heading Dark Team
 			a.list-group-item(href="#", ng-repeat="player in match.darkPlayers") {{player}}
-
-		//- .col-md-3.col-md-offset-2
-		//- 	dl.list-unstyled
-		//- 		dt
-		//- 			h3 Light Team
-		//- 		dd(ng-repeat="player in match.lightPlayers") {{player}}
-		//- .col-md-3.col-md-offset-2
-		//- 	dl.list-unstyled
-		//- 		dt
-		//- 			h3 Dark Team
-		//- 		dd(ng-repeat="player in match.darkPlayers") {{player}}
