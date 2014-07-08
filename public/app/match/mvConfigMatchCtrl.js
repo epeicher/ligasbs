@@ -1,4 +1,4 @@
-angular.module('app').controller('mvConfigMatchCtrl', function($scope, $filter, mvMatch) {
+angular.module('app').controller('mvConfigMatchCtrl', function($scope, $filter, mvMatch, mvNotifier) {
 
 	$scope.match = mvMatch.get({_id: -1}, function() {		
 		$scope.dateFormatted = getFormattedDateTime();
@@ -6,7 +6,16 @@ angular.module('app').controller('mvConfigMatchCtrl', function($scope, $filter, 
 
 	$scope.configMatch = function() {		
 		$scope.match.dateOfMatch = getFixedDateTime();
-		mvMatch.update({_id:$scope.match._id}, $scope.match);
+		mvMatch.update({_id:$scope.match._id}, $scope.match)
+			.$promise.then(
+				function(value) {					
+					console.log("Returned value" + value);
+					mvNotifier.notify("Match saved successfully");
+				},
+				function(error){
+					mvNotifier.error("Error when saving match");
+				}
+			);
 	}
 
 
