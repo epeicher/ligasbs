@@ -57,9 +57,21 @@
 							.col-md-3
 								input.form-control(name="matchdate", type="datetime-local", ng-model="dateFormatted" value="{{dateFormatted}}") 
 						.form-group
+							label.col-md-2.col-md-offset-4.control-label(form="matchdate") Date and Time of the Match
+							.col-md-3
+								.input-group.date#datetimepicker1
+									input.form-control(type="text")
+									span.input-group-addon
+										span.glyphicon.glyphicon-calendar
+						.form-group
 							label.col-md-2.col-md-offset-4.control-label(form="location") Location
 							.col-md-3
 								input.form-control(name="location", type="text", ng-model="match.location")								
 						.form-group
 							.col-md-2.col-md-offset-6.col-xs-2.col-xs-offset-5
 								button.btn.btn-primary(ng-click="configMatch()") Save!
+
+script.
+	$(function () {
+		$('#datetimepicker1').datetimepicker();
+	});
