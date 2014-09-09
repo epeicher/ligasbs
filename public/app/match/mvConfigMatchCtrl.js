@@ -1,16 +1,6 @@
 angular.module('app').controller('mvConfigMatchCtrl', function($scope, $filter, mvMatch, mvNotifier) {
 
-   $scope.vm = {
-        message: "Bootstrap DateTimePicker Directive",
-        dateTime: {}
-    };
-
-    $scope.$watch('change', function(){
-    	console.log('hola caracola');
-        console.log($scope.vm.dateTime);
-    });
-
-	$scope.match = mvMatch.get({_id: -1}, function() {		
+ 	$scope.match = mvMatch.get({_id: -1}, function() {		
 		$scope.dateFormatted = getFormattedDateTime();
 	});
 
@@ -28,56 +18,22 @@ angular.module('app').controller('mvConfigMatchCtrl', function($scope, $filter, 
 			);
 	}
 
+	$scope.onTimeSet = function (newDate, oldDate) {
+		$scope.dateFormatted = getFormattedDateTime();
+	}
+
 
 	function getFormattedDateTime() {
-		var dtReceived = new Date($scope.match.dateOfMatch);
-		return $filter('date')(dtReceived, "yyyy-MM-dd'T'H:mm");
+		//var dtReceived = new Date($scope.match.dateOfMatch);
+		//return $filter('date')(dtReceived, "yyyy-MM-dd'T'H:mm");
+		return  moment.utc($scope.match.dateOfMatch).format("ddd, D [of] MMM YYYY [at] H:mm");
 	}
 
 	function getFixedDateTime() {
 		var dt = new Date($scope.dateFormatted);
-		dt.setMinutes(dt.getMinutes() + dt.getTimezoneOffset());
+		console.log("in the getFixedDateTime "+ dt);
+		dt.setHours(dt.getHours() + 2);
+		console.log("in the getFixedDateTime after calcs "+ dt);
 		return dt;
 	}
-})
-.directive('dateTimePicker', function ($rootScope) {
-
-    return {
-        require: '?ngModel',
-        restrict: 'AE',
-        scope: {
-            pick12HourFormat: '@',
-            language: '@',
-            useCurrent: '@',
-            location: '@'
-        },
-        link: function (scope, elem, attrs) {
-            elem.datetimepicker({
-                pick12HourFormat: scope.pick12HourFormat,
-                language: scope.language,
-                useCurrent: scope.useCurrent
-            })
-
-            //Local event change
-            elem.on('blur', function () {
-
-                console.info('this', this);
-                console.info('scope', scope);
-                console.info('attrs', attrs);
-
-
-                /*// returns moments.js format object
-                scope.dateTime = new Date(elem.data("DateTimePicker").getDate().format());
-                // Global change propagation
-
-                $rootScope.$broadcast("emit:dateTimePicker", {
-                    location: scope.location,
-                    action: 'changed',
-                    dateTime: scope.dateTime,
-                    example: scope.useCurrent
-                });
-                scope.$apply();*/
-            })
-        }
-    };
 });

@@ -11,6 +11,8 @@ angular.module('app').controller('mvMainCtrl', function($scope, mvMatch){
 		{name: 'Johnson', goals: 8, points: 8, playedMatches: 2},
 	]
 
-	$scope.match = mvMatch.get();
+	$scope.match = mvMatch.get(function() {		
+		$scope.dateFormatted = moment.utc($scope.match.dateOfMatch).format("ddd, D [of] MMM YYYY [at] H:mm");
+	});
 	
 });

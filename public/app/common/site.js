@@ -7,7 +7,7 @@
 	// initialise
 	headroom.init(); 
 
-	$('#datetimepicker1').datetimepicker();
+	
 
 
 }());

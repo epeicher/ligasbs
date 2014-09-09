@@ -51,18 +51,17 @@
 							.col-md-8
 								input.form-control(name="nickname", type="text", placeholder="Nick", ng-model="match.darkPlayers[4]", required)																											
 				.row
-					.col-md-12
+					.col-md-12			
 						.form-group
 							label.col-md-2.col-md-offset-4.control-label(form="matchdate") Date and Time of the Match
 							.col-md-3
-								input.form-control(name="matchdate", type="datetime-local", ng-model="dateFormatted" value="{{dateFormatted}}") 
-						.form-group
-							label.col-md-2.col-md-offset-4.control-label(form="matchdate") Date and Time of the Match
-							.col-md-3
-								.input-group.date#datetimepicker1
-									input.form-control(type="text")
-									span.input-group-addon
-										span.glyphicon.glyphicon-calendar
+								.dropdown
+									a.dropdown-toggle.my-toggle-select#dLabel(role="button" data-toggle="dropdown" data-target="#" href="")
+										input.form-control(type="text"  ng-model="dateFormatted")
+										span.input-group-addon
+											span.glyphicon.glyphicon-calendar
+									ul.dropdown-menu(role="menu" aria-labelled-by="dLabel")
+										datetimepicker(ng-model="dateFormatted" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }" data-on-set-time="onTimeSet")
 						.form-group
 							label.col-md-2.col-md-offset-4.control-label(form="location") Location
 							.col-md-3
@@ -70,8 +69,3 @@
 						.form-group
 							.col-md-2.col-md-offset-6.col-xs-2.col-xs-offset-5
 								button.btn.btn-primary(ng-click="configMatch()") Save!
-
-script.
-	$(function () {
-		$('#datetimepicker1').datetimepicker();
-	});
