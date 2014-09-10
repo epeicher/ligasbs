@@ -1,11 +1,12 @@
 angular.module('app').controller('mvConfigMatchCtrl', function($scope, $filter, mvMatch, mvNotifier) {
 
  	$scope.match = mvMatch.get({_id: -1}, function() {		
-		$scope.dateFormatted = getFormattedDateTime();
+		$scope.dateFormatted = getUtcDateTime($scope.match.dateOfMatch);	
+		$scope.date = getParsedDateTime($scope.match.dateOfMatch);
 	});
 
 	$scope.configMatch = function() {		
-		$scope.match.dateOfMatch = getFixedDateTime();
+		$scope.match.dateOfMatch = getConvertedDateTime($scope.date);
 		mvMatch.update({_id:$scope.match._id}, $scope.match)
 			.$promise.then(
 				function(value) {					
@@ -19,21 +20,26 @@ angular.module('app').controller('mvConfigMatchCtrl', function($scope, $filter, 
 	}
 
 	$scope.onTimeSet = function (newDate, oldDate) {
-		$scope.dateFormatted = getFormattedDateTime();
+		$scope.dateFormatted = getFormattedDateTime(newDate);
 	}
 
-
-	function getFormattedDateTime() {
-		//var dtReceived = new Date($scope.match.dateOfMatch);
-		//return $filter('date')(dtReceived, "yyyy-MM-dd'T'H:mm");
-		return  moment.utc($scope.match.dateOfMatch).format("ddd, D [of] MMM YYYY [at] H:mm");
+	function getUtcDateTime(dt) {	
+		return getFormattedDateTime(moment(dt).utc());
 	}
 
-	function getFixedDateTime() {
-		var dt = new Date($scope.dateFormatted);
-		console.log("in the getFixedDateTime "+ dt);
-		dt.setHours(dt.getHours() + 2);
-		console.log("in the getFixedDateTime after calcs "+ dt);
-		return dt;
+	function getFormattedDateTime(dt) {	
+		return  moment(dt).format("ddd, D [of] MMM YYYY [at] H:mm");
+	}
+
+	function getParsedDateTime(dt){
+		var cDate = new Date(dt);
+		cDate.setHours(cDate.getHours() - 2);
+		return cDate;
+	}
+
+	function getConvertedDateTime(dt) {
+		var cDate = new Date(dt);
+		cDate.setHours(cDate.getHours() + 2);
+		return cDate;
 	}
 });
