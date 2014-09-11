@@ -1,12 +1,12 @@
-angular.module('app').controller('mvConfigMatchCtrl', function($scope, $filter, mvMatch, mvNotifier) {
+angular.module('app').controller('mvConfigMatchCtrl', function($scope, mvMatch, mvNotifier, dateUtils) {
 
  	$scope.match = mvMatch.get({_id: -1}, function() {		
-		$scope.dateFormatted = getUtcDateTime($scope.match.dateOfMatch);	
-		$scope.date = getParsedDateTime($scope.match.dateOfMatch);
+		$scope.dateFormatted = dateUtils.getConfigTimeZoneFormatted($scope.match.dateOfMatch);	
+		$scope.date = dateUtils.convertLocalToConfigZone($scope.match.dateOfMatch);
 	});
 
 	$scope.configMatch = function() {		
-		$scope.match.dateOfMatch = getConvertedDateTime($scope.date);
+		$scope.match.dateOfMatch = dateUtils.convertConfigZoneToLocal($scope.date);
 		mvMatch.update({_id:$scope.match._id}, $scope.match)
 			.$promise.then(
 				function(value) {					
@@ -20,26 +20,7 @@ angular.module('app').controller('mvConfigMatchCtrl', function($scope, $filter, 
 	}
 
 	$scope.onTimeSet = function (newDate, oldDate) {
-		$scope.dateFormatted = getFormattedDateTime(newDate);
+		$scope.dateFormatted = dateUtils.getFormattedDateTime(newDate);
 	}
 
-	function getUtcDateTime(dt) {	
-		return getFormattedDateTime(moment(dt).utc());
-	}
-
-	function getFormattedDateTime(dt) {	
-		return  moment(dt).format("ddd, D [of] MMM YYYY [at] H:mm");
-	}
-
-	function getParsedDateTime(dt){
-		var cDate = new Date(dt);
-		cDate.setHours(cDate.getHours() - 2);
-		return cDate;
-	}
-
-	function getConvertedDateTime(dt) {
-		var cDate = new Date(dt);
-		cDate.setHours(cDate.getHours() + 2);
-		return cDate;
-	}
 });
