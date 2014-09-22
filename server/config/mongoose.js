@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
 	userModel = require('../models/User'),
-	matchModel = require('../models/Match');
+	matchModel = require('../models/Match'),
+	leagueModel = require('../models/League');
 
 
 module.exports = function (config) {
@@ -13,5 +14,6 @@ module.exports = function (config) {
 
 	userModel.createDefaultUser();
 	matchModel.createDefaultMatch();
+	leagueModel.createDefaultLeague();
 
 }

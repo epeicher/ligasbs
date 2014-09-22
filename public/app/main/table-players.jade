@@ -1,7 +1,6 @@
 table.table.table-striped.table-hover.table-condensed
 	tr
 		th Name
-		th Nick
 		th Played
 		th Won
 		th Tie
@@ -12,19 +11,16 @@ table.table.table-striped.table-hover.table-condensed
 		th Goal Average
 		th Goals
 		th Points
-		th Total Points
 		
-	tr(ng-repeat="player in players")
+	tr(ng-repeat="player in players.players")
 		td {{player.name}}
+		td {{player.playedMatches}}
+		td {{player.won}}
+		td {{player.tie}}
+		td {{player.lost}}
 		td {{player.points}}
+		td {{player.goalsFor}}
+		td {{player.goalsAgainst}}
 		td {{player.points}}
+		td {{player.scoredGoals}}
 		td {{player.points}}
-		td {{player.points}}
-		td {{player.points}}
-		td {{player.points}}
-		td {{player.points}}
-		td {{player.points}}
-		td {{player.points}}
-		td {{player.points}}
-		td {{player.points}}
-		td {{player.goals}}
