@@ -1,5 +1,5 @@
-angular.module('app').controller('mvMainCtrl', function($scope, $resource, mvMatch, dateUtils){
-	$scope.players =  $resource('/api/league').get();
+angular.module('app').controller('mvMainCtrl', function($scope, $resource, mvMatch, mvPlayers, dateUtils){
+	$scope.players = mvPlayers.query();
 
 	$scope.match = mvMatch.get(function() {		
 		$scope.dateFormatted = dateUtils.getConfigTimeZoneFormatted($scope.match.dateOfMatch);

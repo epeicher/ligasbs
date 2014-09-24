@@ -3,7 +3,7 @@
 	.panel-body
 		.col-md-3.col-md-offset-2.list-group
 			h3.list-group-item-heading Light Team
-			a.list-group-item(href="#", ng-repeat="player in match.lightPlayers") {{player}}
+			a.list-group-item(href="#", ng-repeat="player in match.lightTeam") {{player.name}}
 		.col-md-3.col-md-offset-2.list-group
 			h3.list-group-item-heading Dark Team
-			a.list-group-item(href="#", ng-repeat="player in match.darkPlayers") {{player}}
+			a.list-group-item(href="#", ng-repeat="player in match.darkTeam") {{player.name}}

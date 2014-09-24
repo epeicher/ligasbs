@@ -1,4 +1,11 @@
-angular.module('app').controller('mvConfigMatchCtrl', function($scope, mvMatch, mvNotifier, dateUtils) {
+angular.module('app').controller('mvConfigMatchCtrl', function($scope, mvMatch, mvPlayers, mvNotifier, dateUtils) {
+
+	var listPlayers = mvPlayers.query(function(){
+		$scope.players = [];
+		for(i in listPlayers) {
+			$scope.players.push(listPlayers[i].name);
+		}
+	});
 
  	$scope.match = mvMatch.get({_id: -1}, function() {		
 		$scope.dateFormatted = dateUtils.getConfigTimeZoneFormatted($scope.match.dateOfMatch);	

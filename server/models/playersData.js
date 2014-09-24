@@ -1,5 +1,5 @@
 var Player = function(n) {
-	this.name= n; 
+	this.name= n; 	
 	this.playedMatches= 0; 
 	this.won= 0; 
 	this.tie= 0; 
@@ -9,6 +9,7 @@ var Player = function(n) {
 	this.scoredGoals= 0; 
 	this.points= 0;
 	this.matches= [];
+	this.isArchived = false;
 }
 
 var players = [
@@ -33,7 +34,8 @@ var players = [
 	new Player("Emilio"),
 	new Player("Juan Carlos"),
 	new Player("Marco"),
-	new Player("Jose Luis"),
+	new Player("Jose Luis")
 ]
+
 
 exports.players = players;

@@ -10,46 +10,46 @@
 						.form-group
 							label.col-md-4.control-label(form="nickname") Nick player 1
 							.col-md-8
-								input.form-control(name="nickname", type="text", placeholder="Nick", ng-model="match.lightPlayers[0]", required)
+								select.form-control(name="nickname", ng-model="match.lightTeam[0].name", ng-options="player for player in players" required)
 						.form-group
 							label.col-md-4.control-label(form="nickname") Nick player 2
 							.col-md-8
-								input.form-control(name="nickname", type="text", placeholder="Nick", ng-model="match.lightPlayers[1]", required)		
+								select.form-control(name="nickname", ng-model="match.lightTeam[1].name", ng-options="player for player in players" required)
 						.form-group
 							label.col-md-4.control-label(form="nickname") Nick player 3
 							.col-md-8
-								input.form-control(name="nickname", type="text", placeholder="Nick", ng-model="match.lightPlayers[2]", required)		
-						.form-group
-							label.col-md-4.control-label(form="nickname") Nick player 3
-							.col-md-8
-								input.form-control(name="nickname", type="text", placeholder="Nick", ng-model="match.lightPlayers[3]", required)																		
+								select.form-control(name="nickname", ng-model="match.lightTeam[2].name", ng-options="player for player in players" required)
 						.form-group
 							label.col-md-4.control-label(form="nickname") Nick player 4
 							.col-md-8
-								input.form-control(name="nickname", type="text", placeholder="Nick", ng-model="match.lightPlayers[4]", required)																		
+								select.form-control(name="nickname", ng-model="match.lightTeam[3].name", ng-options="player for player in players" required)
+						.form-group
+							label.col-md-4.control-label(form="nickname") Nick player 5
+							.col-md-8
+								select.form-control(name="nickname", ng-model="match.lightTeam[4].name", ng-options="player for player in players" required)
 					.col-md-6
 						.form-group
 							h3.col-md-8.col-md-offset-4 Dark Team
 						.form-group
 							label.col-md-4.control-label(form="nickname") Nick player 1
 							.col-md-8
-								input.form-control(name="nickname", type="text", placeholder="Nick", ng-model="match.darkPlayers[0]", required)
+								select.form-control(name="nickname", ng-model="match.darkTeam[1].name", ng-options="player for player in players" required)
 						.form-group		
 							label.col-md-4.control-label(form="nickname") Nick player 2
 							.col-md-8
-								input.form-control(name="nickname", type="text", placeholder="Nick", ng-model="match.darkPlayers[1]", required)
+								select.form-control(name="nickname", ng-model="match.darkTeam[1].name", ng-options="player for player in players" required)
 						.form-group
 							label.col-md-4.control-label(form="nickname") Nick player 3
 							.col-md-8
-								input.form-control(name="nickname", type="text", placeholder="Nick", ng-model="match.darkPlayers[2]", required)
+								select.form-control(name="nickname", ng-model="match.darkTeam[2].name", ng-options="player for player in players" required)
 						.form-group
 							label.col-md-4.control-label(form="nickname") Nick player 4
 							.col-md-8
-								input.form-control(name="nickname", type="text", placeholder="Nick", ng-model="match.darkPlayers[3]", required)		
+								select.form-control(name="nickname", ng-model="match.darkTeam[3].name", ng-options="player for player in players" required)
 						.form-group
 							label.col-md-4.control-label(form="nickname") Nick player 5
 							.col-md-8
-								input.form-control(name="nickname", type="text", placeholder="Nick", ng-model="match.darkPlayers[4]", required)																											
+								select.form-control(name="nickname", ng-model="match.darkTeam[4].name", ng-options="player for player in players" required)
 				.row
 					.col-md-12			
 						.form-group
