@@ -32,9 +32,10 @@ var players = [
 	new Player("Raul"),
 	new Player("Daniel"),
 	new Player("Emilio"),
-	new Player("Juan Carlos"),
+	new Player("Juan Ca"),
 	new Player("Marco"),
-	new Player("Jose Luis")
+	new Player("Jose Luis"),
+	new Player("Candido")
 ]
 
 
