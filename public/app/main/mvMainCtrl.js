@@ -1,4 +1,4 @@
-angular.module('app').controller('mvMainCtrl', function($scope, $resource, mvMatch, mvPlayers, dateUtils){
+angular.module('app').controller('mvMainCtrl', function($scope, $resource, mvMatch, mvPlayers, dateUtils, mvNotifier){
 	$scope.players = mvPlayers.query();
 
 	$scope.match = mvMatch.get(function() {		
@@ -25,7 +25,15 @@ angular.module('app').controller('mvMainCtrl', function($scope, $resource, mvMat
 	});
 
 	$scope.configResult = function() {
-		mvMatch.save($scope.match);
+		mvMatch.save($scope.match)
+			.$promise.then(
+				function(value) {					
+					mvNotifier.notify("Match saved successfully");
+				},
+				function(error){
+					mvNotifier.error("Error when saving match");
+				}
+			);
 	}
 
 	$scope.incrementScore = function(player) {

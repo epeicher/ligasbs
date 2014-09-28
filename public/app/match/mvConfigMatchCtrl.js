@@ -17,7 +17,6 @@ angular.module('app').controller('mvConfigMatchCtrl', function($scope, mvMatch, 
 		mvMatch.update({_id:$scope.match._id}, $scope.match)
 			.$promise.then(
 				function(value) {					
-					console.log("Returned value" + value);
 					mvNotifier.notify("Match saved successfully");
 				},
 				function(error){
