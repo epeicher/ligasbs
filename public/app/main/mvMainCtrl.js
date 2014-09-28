@@ -25,9 +25,13 @@ angular.module('app').controller('mvMainCtrl', function($scope, $resource, mvMat
 	});
 
 	$scope.configResult = function() {
+		$scope.match.result.lightTeam = $scope.getLightTeamResult();
+		$scope.match.result.darkTeam = $scope.getDarkTeamResult();
+
 		mvMatch.save($scope.match)
 			.$promise.then(
-				function(value) {					
+				function(value) {	
+					$scope.players = mvPlayers.query();				
 					mvNotifier.notify("Match saved successfully");
 				},
 				function(error){

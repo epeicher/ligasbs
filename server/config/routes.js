@@ -14,7 +14,7 @@ module.exports = function (app) {
 
 	app.get('/api/matches', matchController.getMatch);
 	app.put('/api/matches', matchController.updateMatch);
-	app.post('/api/matches', matchController.updateMatch);
+	app.post('/api/matches', matchController.updateMatchResult);
 
 	app.get('/api/league', leagueControler.getLeagueTable);	
 

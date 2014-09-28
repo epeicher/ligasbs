@@ -16,7 +16,7 @@ angular.module('app').controller('mvConfigMatchCtrl', function($scope, mvMatch, 
 		$scope.match.dateOfMatch = dateUtils.convertConfigZoneToLocal($scope.date);
 		mvMatch.update({_id:$scope.match._id}, $scope.match)
 			.$promise.then(
-				function(value) {					
+				function(value) {				
 					mvNotifier.notify("Match saved successfully");
 				},
 				function(error){
