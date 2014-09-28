@@ -9,9 +9,8 @@ exports.getMatch = function(req, res) {
 exports.updateMatch = function(req, res, next) {
 	var match = req.body;	
 	var id = match._id;
-	delete match._id;
+	delete match._id;	
 	Match.update({_id:id},match, function(err, resMatch) {
-		if(err) {console.log("aqui esta el error");return next(err);}
 		res.send();
 	});	
 }

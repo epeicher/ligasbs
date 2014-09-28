@@ -43,3 +43,6 @@ footer p {
 .headroom--unpinned {
   display: none;
 }
+#bodyMatchMain .form-horizontal .control-label {
+  text-align: left;
+}

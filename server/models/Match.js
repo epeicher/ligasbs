@@ -10,7 +10,8 @@ var matchSchema = mongoose.Schema({
 	dateOfMatch: {type: Date, required: '{PATH} is required'},
 	location: {type: String, required: '{PATH} is required'},
 	darkTeam: {type: [{name:String, scoredGoals:Number}], validate: [validatorLength, 'The length of the team cannnot exceed 5 players']},
-	lightTeam: {type: [{name:String, scoredGoals:Number}], validate: [validatorLength, 'The length of the team cannnot exceed 5 players']}
+	lightTeam: {type: [{name:String, scoredGoals:Number}], validate: [validatorLength, 'The length of the team cannnot exceed 5 players']},
+	result: {darkTeam: Number, lightTeam: Number}
 });
 
 // matchSchema.methods = {
@@ -24,8 +25,8 @@ var Match = mongoose.model('Match', matchSchema);
 function createDefaultMatch() {
 	Match.find({}).exec(function(err, collection){
 		if(collection.length === 0) {
-			var darkTeam = [{name:'Diego'}, {name:'Jose'}, {name:'Alfonso'}, {name:'Emilio'}, {name:'Sergio'}];
-			var lightTeam = [{name:'David P'},{name:'Antonio Garcia'},{name:'Lazaro'},{name:'Marcos'},{name:'Gines'}];
+			var darkTeam = [{name:'Diego', scoredGoals: 0}, {name:'Jose', scoredGoals: 0}, {name:'Alfonso', scoredGoals: 0}, {name:'Emilio', scoredGoals: 0}, {name:'Sergio', scoredGoals: 0}];
+			var lightTeam = [{name:'David P', scoredGoals: 0},{name:'Antonio Garcia', scoredGoals: 0},{name:'Lazaro', scoredGoals: 0},{name:'Marcos', scoredGoals: 0},{name:'Gines', scoredGoals: 0}];
 			League.findOne({}).exec()
 				.then(function(league) {
 					Match.create(
@@ -34,7 +35,8 @@ function createDefaultMatch() {
 							location: 'Uni',
 							darkTeam: darkTeam, 
 							lightTeam: lightTeam,
-							league_id: league._id
+							league_id: league._id,
+							result : {darkTeam: 0, lightTeam: 0}
 						}
 					);
 

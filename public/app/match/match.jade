@@ -1,9 +1,22 @@
 .panel.panel-info
-	.panel-heading The Match is on {{dateFormatted}} in {{match.location}} 
-	.panel-body
-		.col-md-3.col-md-offset-2.list-group
-			h3.list-group-item-heading Light Team
-			a.list-group-item(href="#", ng-repeat="player in match.lightTeam") {{player.name}}
-		.col-md-3.col-md-offset-2.list-group
-			h3.list-group-item-heading Dark Team
-			a.list-group-item(href="#", ng-repeat="player in match.darkTeam") {{player.name}}
+	.panel-heading.clearfix
+		h4.pull-left The Match is on {{dateFormatted}} in {{match.location}} 
+		button.btn.btn-default.pull-right(ng-click="configResult()") Config Result
+	.panel-body#bodyMatchMain
+		.col-md-5.form-horizontal
+			.form-group
+				h3.col-md-12 Light Team
+					strong.pull-right {{match.result.lightTeam}}
+			.form-group(ng-repeat="player in match.lightTeam")
+				a.col-md-7.control-label(href="#" ng-click="incrementScore(player)") {{player.name}}	
+				.col-md-4.pull-right
+					input.form-control(type="number" ng-model="player.scoredGoals")
+		.col-md-5.col-md-offset-1.form-horizontal
+			.form-group
+				h3.col-md-12 Dark Team 
+					strong.pull-right {{getDarkTeamResult()}}
+					//{{match.result.darkTeam}}
+			.form-group(ng-repeat="player in match.darkTeam")
+				a.col-md-7.control-label(href="#" ng-click="incrementScore(player)") {{player.name}}	
+				.col-md-4.pull-right
+					input.form-control(type="number" ng-model="player.scoredGoals")
