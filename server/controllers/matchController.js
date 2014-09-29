@@ -113,9 +113,7 @@ function updateTeamPlayerData(team, match, playerPromises, points, won, tie, los
 		player.goalsFor += match.result[teamName];
 		player.goalsAgainst += match.result[rivalTeamName];
 		player.matches.push({id:match._id, date: match.dateOfMatch});				
-		playerPromises.push(Players.update({_id: id},player, function(err, res, raw) {
-			if(err) onReject(err);
-		}).exec());
+		playerPromises.push(Players.update({_id: id},player).exec());
 	}	
 }
 
