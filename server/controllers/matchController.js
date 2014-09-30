@@ -42,59 +42,35 @@ function updatePlayersByMatch(match) {
 	var draw = match.result.darkTeam === match.result.lightTeam;
 	var darkWins = match.result.darkTeam > match.result.lightTeam;	
 
-	console.log("is draw" + draw);
-	console.log("dark wins" + darkWins);
-
-	console.log(match.result);
-
 	var returnedPlayerPromises = Players.where('name').in(match.darkTeam.map(function (p) { return p.name; })).exec().then(
+		function (darkTeam) {
 
-		function(team) {
+				var promiseLightTeam = Players.where('name').in(match.lightTeam.map(function (p) { return p.name; })).exec().then(
 
-			var playerPromises = [];
+					function(lightTeam) {
+							var playerPromises = [];
 
-			if(!draw && darkWins) {
-				updateTeamPlayerData(team, match, playerPromises, 3, 1, 0, 0, "darkTeam", "lightTeam");			
-			}
-			else if(!draw && !darkWins) {
-				updateTeamPlayerData(team, match, playerPromises, 0, 0, 0, 1, "darkTeam", "lightTeam");
-			}
-			else if(draw) {
-				updateTeamPlayerData(team, match, playerPromises, 1, 0, 1, 0, "darkTeam", "lightTeam");
-			}
+							if(!draw && darkWins) {
+								updateTeamPlayerData(darkTeam, match, playerPromises, 3, 1, 0, 0, "darkTeam", "lightTeam");	
+								updateTeamPlayerData(lightTeam, match, playerPromises, 0, 0, 0, 1, "lightTeam", "darkTeam");		
+							}
+							else if(!draw && !darkWins) {
+								updateTeamPlayerData(darkTeam, match, playerPromises, 0, 0, 0, 1, "darkTeam", "lightTeam");
+								updateTeamPlayerData(lightTeam, match, playerPromises, 3, 1, 0, 0, "lightTeam", "darkTeam");		
+							}
+							else if(draw) {
+								updateTeamPlayerData(darkTeam, match, playerPromises, 1, 0, 1, 0, "darkTeam", "lightTeam");
+								updateTeamPlayerData(lightTeam, match, playerPromises, 1, 0, 1, 0, "lightTeam", "darkTeam");
+							}
 
-			var result = Q.fcall(function() {
-				return playerPromises;			
-			});
-
-			return result;	
-		}
-	).then(
-		function(arrayPromises) {
-			var promiseLightTeam = Players.where('name').in(match.lightTeam.map(function (p) { return p.name; })).exec().then(
-
-				function(team) {
-					if(!draw && !darkWins) {
-						updateTeamPlayerData(team, match, arrayPromises, 3, 1, 0, 0, "lightTeam", "darkTeam");			
+							//return Q.fcall(function() {return playerPromises;});			
 					}
-					else if(!draw && darkWins) {
-						updateTeamPlayerData(team, match, arrayPromises, 0, 0, 0, 1, "lightTeam", "darkTeam");
-					}
-					else if(draw) {
-						updateTeamPlayerData(team, match, arrayPromises, 1, 0, 1, 0, "lightTeam", "darkTeam");
-					}
+				);
 
-					var result = Q.fcall(function() {
-						return arrayPromises;			
-					});
-
-					return result;	
-				}
-			);	
-			return promiseLightTeam;
+				//return Q.fcall(function() {return promiseLightTeam;});
 		}
 	);
-
+	
 	return returnedPlayerPromises;
 }
 

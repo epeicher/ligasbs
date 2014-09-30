@@ -23,12 +23,12 @@ var matchSchema = mongoose.Schema({
 var Match = mongoose.model('Match', matchSchema);
 
 function createDefaultMatch() {
-	Match.find({}).exec(function(err, collection){
+	Match.find({}).find(function(err, collection){
 		if(collection.length === 0) {
 			var darkTeam = [{name:'Diego', scoredGoals: 0}, {name:'Jose', scoredGoals: 0}, {name:'Alfonso', scoredGoals: 0}, {name:'Emilio', scoredGoals: 0}, {name:'Sergio', scoredGoals: 0}];
 			var lightTeam = [{name:'David P', scoredGoals: 0},{name:'Antonio Garcia', scoredGoals: 0},{name:'Lazaro', scoredGoals: 0},{name:'Marcos', scoredGoals: 0},{name:'Gines', scoredGoals: 0}];
-			League.findOne({}).exec()
-				.then(function(league) {
+			League.findOne(
+				function(err, league) {
 					Match.create(
 						{
 							dateOfMatch: '31 Jun 2014 20:00', 
