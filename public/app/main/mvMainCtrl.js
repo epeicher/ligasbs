@@ -30,9 +30,15 @@ angular.module('app').controller('mvMainCtrl', function($scope, $resource, mvMat
 
 		mvMatch.save($scope.match)
 			.$promise.then(
-				function(value) {	
-					$scope.players = mvPlayers.query();				
-					mvNotifier.notify("Match saved successfully");
+				function(value) {
+					console.log(value);
+					if(value.invalidMatch) {
+						mvNotifier.error("Error when saving match: " + value.errors.join("; "));
+					}	
+					else {
+						$scope.players = mvPlayers.query();				
+						mvNotifier.notify("Match saved successfully");
+					}
 				},
 				function(error){
 					mvNotifier.error("Error when saving match");

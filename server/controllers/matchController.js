@@ -23,18 +23,23 @@ exports.updateMatchResult = function(req, res, next) {
 	var match = req.body;	
 	var id = match._id;
 	delete match._id;	
-	Match.update({_id:id},match, function(err, resMatch) {
-		if(!err) {
+	if(Match.isValid(match)) {
+		Match.update({_id:id},match, function(err, resMatch) {
+			if(!err) {
 
-			var promis = updatePlayersByMatch(match);
+				var promis = updatePlayersByMatch(match);
 
-			promis.then(function(result) {				
-					res.send();
-				},
-				onReject
-			);
-		}
-	});	
+				promis.then(function(result) {				
+						res.send();
+					},
+					onReject
+				);
+			}
+		});	
+	}
+	else {
+		res.send({invalidMatch: true, errors: match.errors});
+	}
 }
 
 function updatePlayersByMatch(match) {

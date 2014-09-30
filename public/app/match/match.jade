@@ -10,7 +10,7 @@
 			.form-group(ng-repeat="player in match.lightTeam")
 				a.col-sm-7.control-label(href="#" ng-click="incrementScore(player)") {{player.name}}	
 				.col-sm-4.pull-right
-					input.form-control(type="number" ng-model="player.scoredGoals")
+					input.form-control(type="number" ng-model="player.scoredGoals" min="0" max="99")
 		.col-sm-5.col-sm-offset-1.form-horizontal
 			.form-group
 				h3.col-sm-12 Dark Team 
@@ -18,4 +18,4 @@
 			.form-group(ng-repeat="player in match.darkTeam")
 				a.col-sm-7.control-label(href="#" ng-click="incrementScore(player)") {{player.name}}	
 				.col-sm-4.pull-right
-					input.form-control(type="number" ng-model="player.scoredGoals")
+					input.form-control(type="number" ng-model="player.scoredGoals" min="0" max="99")
