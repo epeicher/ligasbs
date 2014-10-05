@@ -8,15 +8,16 @@ exports.getMatch = function(req, res) {
 	var onlyNotPlayed = {};
 	if(url_parts.query.config) 
 		onlyNotPlayed = {played: false}; 
+	var resMatch;
 	Match.findOne(onlyNotPlayed).sort('-dateOfMatch').exec(function(err, collection) {
-		if(collection)
-			res.send(collection);
-		else {
-			var match = new Match.createNew();
-			debugger;
-			res.send(match);
-		}
+		resMatch = collection;
 	});
+	if(!resMatch) {
+		var match = Match.createNew();
+		resMatch = match;
+	}
+	res.send(resMatch);
+
 };
 
 exports.updateMatch = function(req, res, next) {

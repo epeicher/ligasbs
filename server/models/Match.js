@@ -48,7 +48,10 @@ function createNewMatch() {
 	var emptyTeam = [{name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}];
 	m.lightTeam = emptyTeam;
 	m.darkTeam = emptyTeam;
-
+	League.findOne({Open:true},
+			function(err, league) {				
+				m.league_id = league._id;				
+			});
 	return m;
 }
 
