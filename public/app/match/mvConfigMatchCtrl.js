@@ -7,7 +7,7 @@ angular.module('app').controller('mvConfigMatchCtrl', function($scope, mvMatch, 
 		}
 	});
 
- 	$scope.match = mvMatch.get({_id: -1}, function() {		
+ 	$scope.match = mvMatch.get({config:true},function() {		
 		$scope.dateFormatted = dateUtils.getConfigTimeZoneFormatted($scope.match.dateOfMatch);	
 		$scope.date = dateUtils.convertLocalToConfigZone($scope.match.dateOfMatch);
 	});

@@ -1,11 +1,21 @@
 var mongoose = require('mongoose'),
 	Match = mongoose.model('Match'),
 	Players = mongoose.model('Players'),
-	Q = require('q');
+	url = require('url');
 
 exports.getMatch = function(req, res) {
-	Match.findOne({}).sort('-dateOfMatch').exec(function(err, collection) {
-		res.send(collection);
+	var url_parts = url.parse(req.url, true);
+	var onlyNotPlayed = {};
+	if(url_parts.query.config) 
+		onlyNotPlayed = {played: false}; 
+	Match.findOne(onlyNotPlayed).sort('-dateOfMatch').exec(function(err, collection) {
+		if(collection)
+			res.send(collection);
+		else {
+			var match = new Match.createNew();
+			debugger;
+			res.send(match);
+		}
 	});
 };
 
@@ -13,8 +23,8 @@ exports.updateMatch = function(req, res, next) {
 	var match = req.body;	
 	var id = match._id;
 	delete match._id;	
-	Match.update({_id:id},match, function(err, resMatch) {
-		res.send();
+	Match.update({_id:id}, match, {upsert: true}, function(err, resMatch) {
+		res.send(err);
 	});	
 }
 
@@ -23,6 +33,7 @@ exports.updateMatchResult = function(req, res, next) {
 	var match = req.body;	
 	var id = match._id;
 	delete match._id;	
+	match.played = true;
 	if(Match.isValid(match)) {
 		Match.update({_id:id},match, function(err, resMatch) {
 			if(!err) {
@@ -66,13 +77,9 @@ function updatePlayersByMatch(match) {
 							else if(draw) {
 								updateTeamPlayerData(darkTeam, match, playerPromises, 1, 0, 1, 0, "darkTeam", "lightTeam");
 								updateTeamPlayerData(lightTeam, match, playerPromises, 1, 0, 1, 0, "lightTeam", "darkTeam");
-							}
-
-							//return Q.fcall(function() {return playerPromises;});			
+							}	
 					}
 				);
-
-				//return Q.fcall(function() {return promiseLightTeam;});
 		}
 	);
 	
@@ -82,9 +89,8 @@ function updatePlayersByMatch(match) {
 function updateTeamPlayerData(team, match, playerPromises, points, won, tie, lost, teamName, rivalTeamName) {
 
 	for(i in team) {
-		var player = team[i].toObject();		
+		var player = team[i];		
 		var id = player._id;
-		delete player._id;
 		player.won += won;	
 		player.tie += tie;
 		player.lost += lost;
@@ -94,7 +100,11 @@ function updateTeamPlayerData(team, match, playerPromises, points, won, tie, los
 		player.goalsFor += match.result[teamName];
 		player.goalsAgainst += match.result[rivalTeamName];
 		player.matches.push({id:match._id, date: match.dateOfMatch});				
-		playerPromises.push(Players.update({_id: id},player).exec());
+		player = player.toObject();
+		delete player._id;
+		playerPromises.push(Players.update({_id: id},player).exec(function(err, player) {
+			if(err) { res.send({invalidMatch: true, errors: err}) }
+		}));
 	}	
 }
 

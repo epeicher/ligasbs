@@ -24,24 +24,31 @@ angular.module('app').controller('mvMainCtrl', function($scope, $resource, mvMat
 		$scope.match.result.darkTeam = $scope.getDarkTeamResult();
 	});
 
+	$scope.getButtonText = function (isValid) {
+		if(isValid) return "Config Result";
+		else return "Invalid Result";
+	}
+
 	$scope.configResult = function() {
 		$scope.match.result.lightTeam = $scope.getLightTeamResult();
 		$scope.match.result.darkTeam = $scope.getDarkTeamResult();
+		$scope.match.played = true;
 
 		mvMatch.save($scope.match)
 			.$promise.then(
 				function(value) {
-					console.log(value);
 					if(value.invalidMatch) {
 						mvNotifier.error("Error when saving match: " + value.errors.join("; "));
+						$scope.match.played = false;
 					}	
 					else {
 						$scope.players = mvPlayers.query();				
-						mvNotifier.notify("Match saved successfully");
+						mvNotifier.notify("Match saved successfully");						
 					}
 				},
 				function(error){
 					mvNotifier.error("Error when saving match");
+					$scope.match.played = false;
 				}
 			);
 	}

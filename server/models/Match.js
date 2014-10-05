@@ -12,28 +12,48 @@ var numberGoals = { type: Number, min: min, max: maxGoals }
 
 var matchSchema = mongoose.Schema({	
 	league_id : mongoose.Schema.Types.ObjectId,			
+	played: {type: Boolean, required:true},
 	dateOfMatch: {type: Date, required: '{PATH} is required'},
+	result: {darkTeam: numberGoals, lightTeam: numberGoals},
 	location: {type: String, required: '{PATH} is required'},
 	darkTeam: {type: [{name:String, scoredGoals:numberGoals}], validate: [validatorLength, 'The length of the team cannnot exceed 5 players']},
-	lightTeam: {type: [{name:String, scoredGoals:numberGoals}], validate: [validatorLength, 'The length of the team cannnot exceed 5 players']},
-	result: {darkTeam: numberGoals, lightTeam: numberGoals}
+	lightTeam: {type: [{name:String, scoredGoals:numberGoals}], validate: [validatorLength, 'The length of the team cannnot exceed 5 players']}	
 });
 
 function isValidMethod(match) {
 	match.errors = [];
 	var isMatchValid = true;
 
-	if(match.result.lightTeam < 0) {
-		match.errors.push("The result of the lightTeam must be greater than 0");
+	if(match.result.lightTeam !==  0 && !match.result.lightTeam) {
+		match.errors.push("The result of the lightTeam is invalid");
 	}
-	if(match.result.darkTeam < 0) {
-		match.errors.push("The result of the darkTeam must be greater than 0");
+	if(match.result.darkTeam !== 0 && !match.result.darkTeam) {
+		match.errors.push("The result of the darkTeam is invalid");
 	}
+	if(match.result.lightTeam < 0 || match.result.lightTeam > 99) {
+		match.errors.push("The result of the lightTeam is invalid");
+	}
+	if(match.result.darkTeam < 0 || match.result.darkTeam > 99) {
+		match.errors.push("The result of the darkTeam is invalid");
+	}	
 	return match.errors.length === 0;
 }
 
+function createNewMatch() {
+	var m = new Match();
+	m.played = false;
+	m.dateOfMatch = new Date();
+	m.location = '';
+	m.result = {darkTeam: 0, lightTeam: 0};
+	var emptyTeam = [{name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}];
+	m.lightTeam = emptyTeam;
+	m.darkTeam = emptyTeam;
+
+	return m;
+}
 
  matchSchema.statics.isValid = isValidMethod;
+ matchSchema.statics.createNew = createNewMatch;
 
 var Match = mongoose.model('Match', matchSchema);
 
@@ -48,6 +68,7 @@ function createDefaultMatch() {
 						{
 							dateOfMatch: '31 Jun 2014 20:00', 
 							location: 'Uni',
+							played: false,
 							darkTeam: darkTeam, 
 							lightTeam: lightTeam,
 							league_id: league._id,

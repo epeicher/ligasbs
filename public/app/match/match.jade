@@ -1,21 +1,22 @@
-.panel.panel-info
-	.panel-heading.clearfix
-		h4.pull-left The Match is on {{dateFormatted}} in {{match.location}} 
-		button.btn.btn-default.pull-right(ng-click="configResult()") Config Result
-	.panel-body#bodyMatchMain
-		.col-sm-5.form-horizontal
-			.form-group
-				h3.col-sm-12 Light Team
-					strong.pull-right {{getLightTeamResult()}}
-			.form-group(ng-repeat="player in match.lightTeam")
-				a.col-sm-7.control-label(href="#" ng-click="incrementScore(player)") {{player.name}}	
-				.col-sm-4.pull-right
-					input.form-control(type="number" ng-model="player.scoredGoals" min="0" max="99")
-		.col-sm-5.col-sm-offset-1.form-horizontal
-			.form-group
-				h3.col-sm-12 Dark Team 
-					strong.pull-right {{getDarkTeamResult()}}
-			.form-group(ng-repeat="player in match.darkTeam")
-				a.col-sm-7.control-label(href="#" ng-click="incrementScore(player)") {{player.name}}	
-				.col-sm-4.pull-right
-					input.form-control(type="number" ng-model="player.scoredGoals" min="0" max="99")
+form(name="matchForm")
+	.panel.panel-info
+		.panel-heading.clearfix
+			h4.pull-left The Match is on {{dateFormatted}} in {{match.location}} 
+			button.btn.btn-default.pull-right(ng-click="configResult()" ng-disabled="matchForm.$invalid" ng-show="!match.played") {{getButtonText(matchForm.$valid)}}
+		.panel-body#bodyMatchMain
+			.col-sm-5.form-horizontal
+				.form-group
+					h3.col-sm-12 Light Team
+						strong.pull-right {{getLightTeamResult()}}
+				.form-group(ng-repeat="player in match.lightTeam")
+					a.col-sm-7.control-label(href="#" ng-click="incrementScore(player)") {{player.name}}	
+					.col-sm-4.pull-right
+						input.form-control(type="number" ng-model="player.scoredGoals" min="0" max="99" maxlength="2" ng-maxlength="2" ng-disabled="match.played")
+			.col-sm-5.col-sm-offset-1.form-horizontal
+				.form-group
+					h3.col-sm-12 Dark Team 
+						strong.pull-right {{getDarkTeamResult()}}
+				.form-group(ng-repeat="player in match.darkTeam")
+					a.col-sm-7.control-label(href="#" ng-click="incrementScore(player)") {{player.name}}	
+					.col-sm-4.pull-right
+						input.form-control(type="number" ng-model="player.scoredGoals" min="0" max="99" maxlength="2" ng-maxlength="2" ng-disabled="match.played")
