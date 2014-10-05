@@ -11,12 +11,13 @@ exports.getMatch = function(req, res) {
 	var resMatch;
 	Match.findOne(onlyNotPlayed).sort('-dateOfMatch').exec(function(err, collection) {
 		resMatch = collection;
+		if(!resMatch) {
+			var match = Match.createNew();
+			resMatch = match;
+		}
+		res.send(resMatch);
 	});
-	if(!resMatch) {
-		var match = Match.createNew();
-		resMatch = match;
-	}
-	res.send(resMatch);
+
 
 };
 
