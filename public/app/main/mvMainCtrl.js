@@ -54,7 +54,13 @@ angular.module('app').controller('mvMainCtrl', function($scope, $resource, mvMat
 	}
 
 	$scope.incrementScore = function(player) {
+		if ($scope.match.played) return;
+
 		player.scoredGoals += 1;		
+	}
+
+	$scope.showButton = function(match) {
+		return !match.played && new Date(match.dateOfMatch) < new Date();
 	}
 
 	

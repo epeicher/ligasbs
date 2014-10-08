@@ -2,7 +2,7 @@ form(name="matchForm")
 	.panel.panel-info
 		.panel-heading.clearfix
 			h4.pull-left The Match is on {{dateFormatted}} in {{match.location}} 
-			button.btn.btn-default.pull-right(ng-click="configResult()" ng-disabled="matchForm.$invalid" ng-show="!match.played") {{getButtonText(matchForm.$valid)}}
+			button.btn.btn-default.pull-right(ng-click="configResult()" ng-disabled="matchForm.$invalid" ng-show="showButton(match)") {{getButtonText(matchForm.$valid)}}
 		.panel-body#bodyMatchMain
 			.col-sm-5.form-horizontal
 				.form-group
