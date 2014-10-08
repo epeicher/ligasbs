@@ -21,6 +21,7 @@ function updatePlayersComputedFields(players) {
 		if(player.playedMatches) {
 			player.victoriesPct = player.won / player.playedMatches;
 			player.goalsAverage = player.scoredGoals / player.playedMatches;
+			players[i] = player;
 		}
 	}
 	return players;
