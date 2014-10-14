@@ -110,7 +110,14 @@ function updateTeamPlayerData(team, match, playerPromises, points, won, tie, los
 	}	
 }
 
-function getPlayerScoredGoals(a,b) {
+function getPlayerScoredGoals(player,team) {
+	var p = {};
+	for(i in team){
+		p = team[i];
+		if(p.name === player.name) {
+			return p.scoredGoals;
+		}
+	}
 	return 0;
 }
 
