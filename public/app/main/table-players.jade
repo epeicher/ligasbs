@@ -14,6 +14,7 @@ table.table.table-striped.table-hover.table-condensed
 		
 	tr(ng-repeat="player in players")
 		td {{player.name}}
+<<<<<<< HEAD
 		td.text-right {{player.playedMatches}}
 		td.text-right {{player.won}}
 		td.text-right {{player.tie}}
@@ -24,3 +25,15 @@ table.table.table-striped.table-hover.table-condensed
 		td.text-right {{player.goalsAverage}}
 		td.text-right {{player.scoredGoals}}
 		td.text-right {{player.points}}
+=======
+		td {{player.playedMatches}}
+		td {{player.won}}
+		td {{player.tie}}
+		td {{player.lost}}
+		td {{player.victoriesPct | number}}
+		td {{player.goalsFor}}
+		td {{player.goalsAgainst}}
+		td {{player.goalsAverage}}
+		td {{player.scoredGoals}}
+		td {{player.points}}
+>>>>>>> 6e0b5a64f73ee8984d6de9238bd39c697b0b7f4f
