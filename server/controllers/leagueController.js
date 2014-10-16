@@ -20,7 +20,7 @@ function updatePlayersComputedFields(players) {
 		var player = players[i].toObject();
 		if(player.playedMatches) {
 			player.victoriesPct = player.won / player.playedMatches;
-			player.goalsAverage = player.scoredGoals / player.playedMatches;
+			player.goalsAverage = player.goalsFor - player.goalsAgainst;
 			players[i] = player;
 		}
 	}
