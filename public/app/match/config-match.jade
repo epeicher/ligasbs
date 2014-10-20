@@ -27,6 +27,10 @@
 							label.col-md-4.control-label(form="nickname") Nick player 5
 							.col-md-8
 								select.form-control(name="nickname", ng-model="match.lightTeam[4].name", ng-options="player for player in players" required)
+						.form-group
+							label.col-md-4.control-label(form="nickname") Nick player 6
+							.col-md-8
+								select.form-control(name="nickname", ng-model="match.lightTeam[5].name", ng-options="player for player in players" required)									
 					.col-md-6
 						.form-group
 							h3.col-md-8.col-md-offset-4 Dark Team
@@ -50,6 +54,10 @@
 							label.col-md-4.control-label(form="nickname") Nick player 5
 							.col-md-8
 								select.form-control(name="nickname", ng-model="match.darkTeam[4].name", ng-options="player for player in players" required)
+						.form-group
+							label.col-md-4.control-label(form="nickname") Nick player 6
+							.col-md-8
+								select.form-control(name="nickname", ng-model="match.darkTeam[5].name", ng-options="player for player in players" required)									
 				.row
 					.col-md-12			
 						.form-group

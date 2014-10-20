@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
 League = mongoose.model('League');
 
 function validatorLength(val) {
-	return val.length <= 5;
+	return val.length <= 6;
 }
 
 var min = [0, 'The value of `{PATH}` must be a possitive number.'];
@@ -45,7 +45,7 @@ function createNewMatch() {
 	m.dateOfMatch = new Date();
 	m.location = '';
 	m.result = {darkTeam: 0, lightTeam: 0};
-	var emptyTeam = [{name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}];
+	var emptyTeam = [{name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}, {name:'', scoredGoals: 0}];
 	m.lightTeam = emptyTeam;
 	m.darkTeam = emptyTeam;
 	League.findOne({Open:true},

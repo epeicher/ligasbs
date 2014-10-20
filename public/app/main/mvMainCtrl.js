@@ -4,24 +4,17 @@ angular.module('app').controller('mvMainCtrl', function($scope, $resource, mvMat
 	$scope.match = mvMatch.get(function() {		
 		$scope.dateFormatted = dateUtils.getConfigTimeZoneFormatted($scope.match.dateOfMatch);
 
-		$scope.getLightTeamResult = function() {
-			return $scope.match.lightTeam[0].scoredGoals
-				+ $scope.match.lightTeam[1].scoredGoals
-				+ $scope.match.lightTeam[2].scoredGoals
-				+ $scope.match.lightTeam[3].scoredGoals
-				+ $scope.match.lightTeam[4].scoredGoals;
+		$scope.getTeamResult = function(team) {
+			var result = 0;
+			for(i in team) {
+				if(team[i].scoredGoals)
+					result += team[i].scoredGoals;
+			}
+			return result;
 		}
 
-		$scope.getDarkTeamResult = function() {
-			return $scope.match.darkTeam[0].scoredGoals
-				+ $scope.match.darkTeam[1].scoredGoals
-				+ $scope.match.darkTeam[2].scoredGoals
-				+ $scope.match.darkTeam[3].scoredGoals
-				+ $scope.match.darkTeam[4].scoredGoals;
-		}
-
-		$scope.match.result.lightTeam = $scope.getLightTeamResult();
-		$scope.match.result.darkTeam = $scope.getDarkTeamResult();
+		$scope.match.result.lightTeam = $scope.getTeamResult($scope.match.lightTeam);
+		$scope.match.result.darkTeam = $scope.getTeamResult($scope.match.darkTeam);
 	});
 
 	$scope.getButtonText = function (isValid) {
@@ -30,8 +23,8 @@ angular.module('app').controller('mvMainCtrl', function($scope, $resource, mvMat
 	}
 
 	$scope.configResult = function() {
-		$scope.match.result.lightTeam = $scope.getLightTeamResult();
-		$scope.match.result.darkTeam = $scope.getDarkTeamResult();
+		$scope.match.result.lightTeam = $scope.getTeamResult($scope.match.lightTeam);
+		$scope.match.result.darkTeam = $scope.getTeamResult($scope.match.darkTeam);
 		$scope.match.played = true;
 
 		mvMatch.save($scope.match)
