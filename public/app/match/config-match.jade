@@ -7,59 +7,27 @@
 					.col-md-6
 						.form-group
 							h3.col-md-8.col-md-offset-4 Light Team
-						.form-group
-							label.col-md-4.control-label(form="nickname") Nick player 1
-							.col-md-8
-								select.form-control(name="nickname", ng-model="match.lightTeam[0].name", ng-options="player for player in players" required)
-						.form-group
-							label.col-md-4.control-label(form="nickname") Nick player 2
-							.col-md-8
-								select.form-control(name="nickname", ng-model="match.lightTeam[1].name", ng-options="player for player in players" required)
-						.form-group
-							label.col-md-4.control-label(form="nickname") Nick player 3
-							.col-md-8
-								select.form-control(name="nickname", ng-model="match.lightTeam[2].name", ng-options="player for player in players" required)
-						.form-group
-							label.col-md-4.control-label(form="nickname") Nick player 4
-							.col-md-8
-								select.form-control(name="nickname", ng-model="match.lightTeam[3].name", ng-options="player for player in players" required)
-						.form-group
-							label.col-md-4.control-label(form="nickname") Nick player 5
-							.col-md-8
-								select.form-control(name="nickname", ng-model="match.lightTeam[4].name", ng-options="player for player in players" required)
-						.form-group
-							label.col-md-4.control-label(form="nickname") Nick player 6
-							.col-md-8
-								select.form-control(name="nickname", ng-model="match.lightTeam[5].name", ng-options="player for player in players" required)									
+								small.badge.pull-right#ext-label Ext.
+						.form-group(ng-repeat="player in match.lightTeam")
+							label.col-md-4.control-label(form="nickname") Nick player {{$index + 1}}
+							.col-md-7
+								select.form-control(name="nickname", ng-model="player.name", ng-options="player for player in players", ng-hide="player.isExtern")
+								input.form-control(name="nickname", ng-model="player.name", type="text", ng-show="player.isExtern")
+							.col-md-1
+								input(type="checkbox" ng-model="player.isExtern")
 					.col-md-6
 						.form-group
 							h3.col-md-8.col-md-offset-4 Dark Team
-						.form-group
-							label.col-md-4.control-label(form="nickname") Nick player 1
-							.col-md-8
-								select.form-control(name="nickname", ng-model="match.darkTeam[0].name", ng-options="player for player in players" required)
-						.form-group		
-							label.col-md-4.control-label(form="nickname") Nick player 2
-							.col-md-8
-								select.form-control(name="nickname", ng-model="match.darkTeam[1].name", ng-options="player for player in players" required)
-						.form-group
-							label.col-md-4.control-label(form="nickname") Nick player 3
-							.col-md-8
-								select.form-control(name="nickname", ng-model="match.darkTeam[2].name", ng-options="player for player in players" required)
-						.form-group
-							label.col-md-4.control-label(form="nickname") Nick player 4
-							.col-md-8
-								select.form-control(name="nickname", ng-model="match.darkTeam[3].name", ng-options="player for player in players" required)
-						.form-group
-							label.col-md-4.control-label(form="nickname") Nick player 5
-							.col-md-8
-								select.form-control(name="nickname", ng-model="match.darkTeam[4].name", ng-options="player for player in players" required)
-						.form-group
-							label.col-md-4.control-label(form="nickname") Nick player 6
-							.col-md-8
-								select.form-control(name="nickname", ng-model="match.darkTeam[5].name", ng-options="player for player in players" required)									
+								small.badge.pull-right#ext-label Ext.
+						.form-group(ng-repeat="player in match.darkTeam")
+							label.col-md-4.control-label(form="nickname") Nick player {{index + 1}}
+							.col-md-7
+								select.form-control(name="nickname", ng-model="player.name", ng-options="player for player in players", ng-hide="player.isExtern")
+								input.form-control(name="nickname", ng-model="player.name", type="text", ng-show="player.isExtern") 
+							.col-md-1
+								input(type="checkbox" ng-model="player.isExtern")
 				.row
-					.col-md-12			
+					.col-md-12
 						.form-group
 							label.col-md-2.col-md-offset-4.control-label(form="matchdate") Date and Time of the Match
 							.col-md-3
@@ -73,7 +41,7 @@
 						.form-group
 							label.col-md-2.col-md-offset-4.control-label(form="location") Location
 							.col-md-3
-								input.form-control(name="location", type="text", ng-model="match.location")								
+								input.form-control(name="location", type="text", ng-model="match.location")
 						.form-group
 							.col-md-2.col-md-offset-6.col-xs-2.col-xs-offset-5
 								button.btn.btn-primary(ng-click="configMatch()") Save!
