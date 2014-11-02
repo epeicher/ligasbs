@@ -20,7 +20,7 @@
 							h3.col-sm-8.col-sm-offset-4 Dark Team
 								small.badge.pull-right#ext-label External
 						.form-group(ng-repeat="player in match.darkTeam")
-							label.col-sm-4.control-label(form="nickname") Nick player {{index + 1}}
+							label.col-sm-4.control-label(form="nickname") Nick player {{$index + 1}}
 							.col-sm-6
 								select.form-control(name="nickname", ng-model="player.name", ng-options="player for player in players", ng-hide="player.isExtern")
 								input.form-control(name="nickname", ng-model="player.name", type="text", ng-show="player.isExtern") 
