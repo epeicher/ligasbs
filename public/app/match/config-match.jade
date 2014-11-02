@@ -4,33 +4,33 @@
 			fieldset
 				legend#matchLegend New Match Configuration
 				.row
-					.col-md-6
+					.col-sm-6
 						.form-group
-							h3.col-md-8.col-md-offset-4 Light Team
-								small.badge.pull-right#ext-label Ext.
+							h3.col-sm-8.col-sm-offset-4 Light Team
+								small.badge.pull-right#ext-label External
 						.form-group(ng-repeat="player in match.lightTeam")
-							label.col-md-4.control-label(form="nickname") Nick player {{$index + 1}}
-							.col-md-7
+							label.col-sm-4.control-label(form="nickname") Nick player {{$index + 1}}
+							.col-sm-6
 								select.form-control(name="nickname", ng-model="player.name", ng-options="player for player in players", ng-hide="player.isExtern")
 								input.form-control(name="nickname", ng-model="player.name", type="text", ng-show="player.isExtern")
-							.col-md-1
+							.col-sm-1
 								input(type="checkbox" ng-model="player.isExtern")
-					.col-md-6
+					.col-sm-6
 						.form-group
-							h3.col-md-8.col-md-offset-4 Dark Team
-								small.badge.pull-right#ext-label Ext.
+							h3.col-sm-8.col-sm-offset-4 Dark Team
+								small.badge.pull-right#ext-label External
 						.form-group(ng-repeat="player in match.darkTeam")
-							label.col-md-4.control-label(form="nickname") Nick player {{index + 1}}
-							.col-md-7
+							label.col-sm-4.control-label(form="nickname") Nick player {{index + 1}}
+							.col-sm-6
 								select.form-control(name="nickname", ng-model="player.name", ng-options="player for player in players", ng-hide="player.isExtern")
 								input.form-control(name="nickname", ng-model="player.name", type="text", ng-show="player.isExtern") 
-							.col-md-1
+							.col-sm-1
 								input(type="checkbox" ng-model="player.isExtern")
 				.row
-					.col-md-12
+					.col-sm-12
 						.form-group
-							label.col-md-2.col-md-offset-4.control-label(form="matchdate") Date and Time of the Match
-							.col-md-3
+							label.col-sm-2.col-sm-offset-4.control-label(form="matchdate") Date and Time of the Match
+							.col-sm-3
 								.dropdown
 									a.dropdown-toggle.my-toggle-select#dLabel(role="button" data-toggle="dropdown" data-target="#" href="")
 										input.form-control(type="text"  ng-model="dateFormatted")
@@ -39,9 +39,9 @@
 									ul.dropdown-menu(role="menu" aria-labelled-by="dLabel")
 										datetimepicker(ng-model="date" data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }" data-on-set-time="onTimeSet")
 						.form-group
-							label.col-md-2.col-md-offset-4.control-label(form="location") Location
-							.col-md-3
+							label.col-sm-2.col-sm-offset-4.control-label(form="location") Location
+							.col-sm-3
 								input.form-control(name="location", type="text", ng-model="match.location")
 						.form-group
-							.col-md-2.col-md-offset-6.col-xs-2.col-xs-offset-5
+							.col-sm-2.col-sm-offset-6.col-xs-2.col-xs-offset-5
 								button.btn.btn-primary(ng-click="configMatch()") Save!
