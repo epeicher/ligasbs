@@ -1,0 +1,2 @@
+{"name":"newrelic","hostname":"Roberto","pid":6932,"level":30,"msg":"Starting New Relic for Node.js connection process.","time":"2014-11-11T20:55:32.702Z","v":0}
+{"name":"newrelic","hostname":"Roberto","pid":6932,"component":"express","level":40,"msg":"Unrecognized version NaN of Express detected; not instrumenting","time":"2014-11-11T20:55:33.502Z","v":0}
